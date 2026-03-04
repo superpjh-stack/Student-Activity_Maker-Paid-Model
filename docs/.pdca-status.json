@@ -1,0 +1,327 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-03-04T09:00:02.246Z",
+  "activeFeatures": [
+    "Student-Activity-Maker",
+    "generate-report",
+    "generate-setech",
+    "ui",
+    "features",
+    "[subject]",
+    "generate",
+    "history",
+    "[id]"
+  ],
+  "primaryFeature": "Student-Activity-Maker",
+  "features": {
+    "Student-Activity-Maker": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-04T05:30:14.352Z",
+        "lastUpdated": "2026-03-04T09:00:02.246Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\lib\\topics-cache.ts"
+    },
+    "generate-report": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-04T05:31:04.621Z",
+        "lastUpdated": "2026-03-04T05:31:04.621Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\app\\api\\generate-report\\route.ts"
+    },
+    "generate-setech": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-04T05:31:14.984Z",
+        "lastUpdated": "2026-03-04T05:34:44.038Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\app\\api\\generate-setech\\route.ts"
+    },
+    "ui": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-04T07:31:35.573Z",
+        "lastUpdated": "2026-03-04T07:32:43.392Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\components\\ui\\CopyButton.tsx"
+    },
+    "features": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-04T07:32:46.571Z",
+        "lastUpdated": "2026-03-04T07:32:46.571Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\components\\features\\ResultDisplay.tsx"
+    },
+    "[subject]": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-04T07:34:02.100Z",
+        "lastUpdated": "2026-03-04T08:49:02.449Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\app\\[subject]\\page.tsx"
+    },
+    "generate": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-04T07:48:23.381Z",
+        "lastUpdated": "2026-03-04T08:32:37.011Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\app\\generate\\page.tsx"
+    },
+    "history": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-04T08:31:28.091Z",
+        "lastUpdated": "2026-03-04T08:31:28.091Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\app\\history\\page.tsx"
+    },
+    "[id]": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-04T08:31:54.996Z",
+        "lastUpdated": "2026-03-04T08:31:54.996Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\app\\history\\[id]\\page.tsx"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-03-04T05:19:00.707Z",
+    "onboardingCompleted": false,
+    "lastActivity": "2026-03-04T09:00:02.246Z"
+  },
+  "history": [
+    {
+      "timestamp": "2026-03-04T05:30:14.352Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T05:31:04.621Z",
+      "feature": "generate-report",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T05:31:14.984Z",
+      "feature": "generate-setech",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T05:34:44.038Z",
+      "feature": "generate-setech",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T07:27:31.452Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T07:28:17.624Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T07:31:35.573Z",
+      "feature": "ui",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T07:32:43.392Z",
+      "feature": "ui",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T07:32:46.571Z",
+      "feature": "features",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T07:33:02.106Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T07:33:19.821Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T07:34:02.100Z",
+      "feature": "[subject]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T07:48:23.381Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:21:40.661Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:30:28.733Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:30:36.426Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:30:56.369Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:31:07.483Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:31:28.091Z",
+      "feature": "history",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:31:54.997Z",
+      "feature": "[id]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:32:37.011Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:45:12.421Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:45:28.399Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:45:38.376Z",
+      "feature": "[subject]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:45:44.848Z",
+      "feature": "[subject]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:45:51.136Z",
+      "feature": "[subject]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:46:22.494Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:48:32.631Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T08:49:02.450Z",
+      "feature": "[subject]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-04T09:00:02.246Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    }
+  ]
+}
