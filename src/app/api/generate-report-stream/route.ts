@@ -13,13 +13,34 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const stream = await generateReportStream({ subject, topic, length, tone, profile, coaching, teacherStyle });
+    const rawStream = await generateReportStream({ subject, topic, length, tone, profile, coaching, teacherStyle });
 
-    return new Response(stream, {
+    const sseStream = new ReadableStream({
+      async start(controller) {
+        const reader = rawStream.getReader();
+        const encoder = new TextEncoder();
+        const decoder = new TextDecoder();
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) {
+              controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+              break;
+            }
+            const text = decoder.decode(value, { stream: true });
+            controller.enqueue(encoder.encode(`data: ${JSON.stringify(text)}\n\n`));
+          }
+        } finally {
+          controller.close();
+        }
+      },
+    });
+
+    return new Response(sseStream, {
       headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
+        'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
-        'X-Accel-Buffering': 'no',
+        'Connection': 'keep-alive',
       },
     });
   } catch (error) {

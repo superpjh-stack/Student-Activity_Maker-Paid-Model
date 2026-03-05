@@ -99,10 +99,20 @@ async function streamText(url: string, body: object, onChunk: (text: string) => 
   if (!res.ok || !res.body) throw new Error('스트리밍 응답 오류');
   const reader = res.body.getReader();
   const decoder = new TextDecoder();
+  let buffer = '';
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
-    onChunk(decoder.decode(value, { stream: true }));
+    buffer += decoder.decode(value, { stream: true });
+    const parts = buffer.split('\n\n');
+    buffer = parts.pop() ?? '';
+    for (const part of parts) {
+      if (part.startsWith('data: ')) {
+        const data = part.slice(6);
+        if (data === '[DONE]') return;
+        try { onChunk(JSON.parse(data)); } catch { /* ignore */ }
+      }
+    }
   }
 }
 
