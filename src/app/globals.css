@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #faf7ff;
+  --foreground: #1e1b4b;
 }
 
 @theme inline {
@@ -14,4 +14,146 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(167, 139, 250, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 0%, rgba(236, 72, 153, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+  background-attachment: scroll; /* fixed 제거 - iOS 스크롤 버벅임 방지 */
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent; /* 모바일 탭 하이라이트 제거 */
+}
+
+@media (min-width: 768px) {
+  body {
+    background-attachment: fixed;
+  }
+}
+
+/* ───── Gradient text utility ───── */
+.gradient-text {
+  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ───── Glass card ───── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* ───── Gradient button ───── */
+.btn-gradient {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
+}
+.btn-gradient:hover {
+  background-position: 100% 50%;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+  transform: translateY(-1px);
+}
+.btn-gradient:disabled {
+  background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%);
+  box-shadow: none;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* ───── Streaming cursor ───── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ───── Floating animation ───── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ───── Shimmer animation ───── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ───── Card hover lift ───── */
+.card-hover {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.12);
+}
+
+/* 터치 디바이스에서는 hover 대신 active로 피드백 */
+@media (hover: none) {
+  .card-hover:hover {
+    transform: none;
+    box-shadow: none;
+  }
+  .card-hover:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
+  .btn-gradient:hover {
+    background-position: 0% 50%;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
+    transform: none;
+  }
+  .btn-gradient:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}
+
+/* ───── Safe area (iOS 노치/홈바) ───── */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ───── 최소 터치 타겟 보장 ───── */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ───── Print styles ───── */
+#print-area {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print-area {
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+    position: fixed;
+    inset: 0;
+    background: white;
+    color: black;
+    font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    font-size: 11pt;
+    line-height: 1.9;
+    padding: 20mm 25mm;
+    box-sizing: border-box;
+  }
+  #print-area * {
+    visibility: visible;
+  }
 }

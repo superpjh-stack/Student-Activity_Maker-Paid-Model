@@ -37,16 +37,16 @@ export default function HistoryPage() {
   };
 
   return (
-    <div className="py-8">
-      <div className="mb-6 flex items-center justify-between">
+    <div className="py-6 pb-16">
+      <div className="mb-6 flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">🗂️ 생성 이력</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">🗂️ 생성 이력</h1>
           <p className="mt-1 text-sm text-slate-500">총 {items.length}개의 이력이 저장되어 있습니다.</p>
         </div>
         {items.length > 0 && (
           <button
             onClick={handleClearAll}
-            className="rounded-lg border border-red-200 px-3 py-1.5 text-sm text-red-500 hover:bg-red-50"
+            className="shrink-0 rounded-full border border-red-200 px-3 py-1.5 text-sm font-medium text-red-500 hover:bg-red-50 active:scale-95 transition-all"
           >
             전체 삭제
           </button>
@@ -54,12 +54,12 @@ export default function HistoryPage() {
       </div>
 
       {items.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-slate-200 py-20">
+        <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 py-20">
           <p className="text-4xl">📭</p>
           <p className="mt-3 text-slate-500">저장된 이력이 없습니다.</p>
           <Link
             href="/"
-            className="mt-4 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+            className="mt-4 rounded-full btn-gradient px-6 py-2.5 text-sm font-semibold text-white active:scale-95 transition-all"
           >
             보고서 생성하러 가기
           </Link>
@@ -69,28 +69,28 @@ export default function HistoryPage() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+              className="glass-card rounded-2xl p-4 transition-shadow hover:shadow-md"
             >
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start justify-between gap-3">
                 <Link href={`/history/${item.id}`} className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="text-xl">{item.subjectEmoji}</span>
-                    <span className="font-semibold text-slate-800">{item.subjectName}</span>
+                    <span className="font-bold text-slate-800">{item.subjectName}</span>
                     <div className="flex gap-1">
                       {item.report && (
-                        <span className="rounded-full bg-indigo-100 px-2 py-0.5 text-xs text-indigo-600">
+                        <span className="rounded-full bg-violet-100 px-2 py-0.5 text-xs font-medium text-violet-600">
                           보고서
                         </span>
                       )}
                       {item.setech && (
-                        <span className="rounded-full bg-violet-100 px-2 py-0.5 text-xs text-violet-600">
+                        <span className="rounded-full bg-pink-100 px-2 py-0.5 text-xs font-medium text-pink-600">
                           세특
                         </span>
                       )}
                     </div>
                   </div>
-                  <p className="mt-1 truncate text-sm text-slate-600">{item.topic}</p>
-                  <div className="mt-2 flex items-center gap-3 text-xs text-slate-400">
+                  <p className="mt-1.5 line-clamp-2 text-sm text-slate-600">{item.topic}</p>
+                  <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-slate-400">
                     <span>{new Date(item.createdAt).toLocaleString('ko-KR')}</span>
                     {item.report && (
                       <>
@@ -102,7 +102,7 @@ export default function HistoryPage() {
                 </Link>
                 <button
                   onClick={() => handleDelete(item.id)}
-                  className="shrink-0 rounded-lg p-1.5 text-slate-400 hover:bg-red-50 hover:text-red-500"
+                  className="shrink-0 flex h-8 w-8 items-center justify-center rounded-full text-slate-400 hover:bg-red-50 hover:text-red-500 active:scale-95 transition-all"
                   title="삭제"
                 >
                   ✕
