@@ -56,7 +56,7 @@ export default function SourceList({ sources, loading }: SourceListProps) {
                     href={urls.riss}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-blue-500/20 text-blue-300 hover:bg-blue-500/40 transition-colors"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors"
                   >
                     🔍 RISS
                   </a>
@@ -64,7 +64,7 @@ export default function SourceList({ sources, loading }: SourceListProps) {
                     href={urls.scholar}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-green-500/20 text-green-300 hover:bg-green-500/40 transition-colors"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-green-100 text-green-700 hover:bg-green-200 transition-colors"
                   >
                     📖 Google Scholar
                   </a>
@@ -72,7 +72,7 @@ export default function SourceList({ sources, loading }: SourceListProps) {
                     href={urls.naver}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/40 transition-colors"
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs bg-emerald-100 text-emerald-700 hover:bg-emerald-200 transition-colors"
                   >
                     📰 NAVER 학술
                   </a>
