@@ -41,11 +41,11 @@ export default function SourceList({ sources, loading }: SourceListProps) {
             const urls = buildSearchUrls(src.keyword);
             return (
               <li key={i} className="text-sm">
-                <div className="text-slate-700 leading-snug mb-1">
-                  <span className="text-slate-400 mr-1.5">[{i + 1}]</span>
-                  <span className="font-medium text-slate-800">{src.title}</span>
+                <div className="text-black leading-snug mb-1">
+                  <span className="text-gray-500 mr-1.5">[{i + 1}]</span>
+                  <span className="font-medium text-black">{src.title}</span>
                   {(src.author || src.year) && (
-                    <span className="text-slate-500">
+                    <span className="text-gray-600">
                       {src.author ? ` — ${src.author}` : ''}
                       {src.year ? ` (${src.year})` : ''}
                     </span>
