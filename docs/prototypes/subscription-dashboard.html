@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 생기부 Maker — 대시보드 프로토타입</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #a855f7 0%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: 0 4px 24px rgba(236,72,153,0.05), 0 1px 4px rgba(0,0,0,0.03);
+    }
+    .tab-active { border-bottom: 2px solid #a855f7; color: #a855f7; font-weight: 700; }
+    .tab-inactive { border-bottom: 2px solid transparent; color: #94a3b8; }
+    .subject-none { background: #f1f5f9; border: 1.5px dashed #cbd5e1; }
+    .subject-progress { background: linear-gradient(135deg,#e0e7ff,#ede9fe); border: 1.5px solid #a5b4fc; }
+    .subject-done { background: linear-gradient(135deg,#f0abfc,#f9a8d4); border: 1.5px solid #e879f9; }
+    .usage-bar-fill { transition: width 0.6s cubic-bezier(.4,0,.2,1); }
+    @keyframes slideUp { from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1} }
+    .slide-up { animation: slideUp 0.25s ease; }
+  </style>
+</head>
+<body class="min-h-screen" style="background:#fdf6fa; background-image: radial-gradient(ellipse at 20% 0%, rgba(240,171,252,0.18) 0%, transparent 60%), radial-gradient(ellipse at 80% 0%, rgba(249,168,212,0.14) 0%, transparent 50%);">
+
+<!-- NAV -->
+<div class="mx-auto max-w-4xl px-4">
+  <nav class="flex items-center justify-between py-3">
+    <a href="#" class="flex items-center gap-2">
+      <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-fuchsia-400 to-pink-300 text-lg shadow-md">📝</span>
+      <span class="font-bold gradient-text text-base">AI 생기부 Maker</span>
+    </a>
+    <div class="flex items-center gap-2">
+      <button onclick="showPage('dashboard')" class="rounded-full border border-purple-200 bg-purple-50 px-3 py-1.5 text-xs font-medium text-purple-600 hover:bg-purple-100 transition-all">🏠 대시보드</button>
+      <button onclick="showPage('my')" class="rounded-full border border-pink-200 bg-pink-50 px-3 py-1.5 text-xs font-medium text-pink-500 hover:bg-pink-100 transition-all">👤 마이페이지</button>
+    </div>
+  </nav>
+</div>
+
+<!-- DASHBOARD PAGE -->
+<div id="page-dashboard" class="mx-auto max-w-4xl px-4 pb-16">
+
+  <!-- 헤더: 학생 정보 + D-day -->
+  <div class="mt-2 mb-5 glass-card rounded-2xl p-4 sm:p-5 slide-up">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-400 to-pink-300 text-2xl shadow-md">🎓</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-slate-800 text-base">김지수</span>
+            <span class="text-slate-500 text-sm">·</span>
+            <span class="text-slate-600 text-sm font-medium">고2</span>
+            <span class="rounded-full bg-gradient-to-r from-violet-500 to-purple-400 px-2.5 py-0.5 text-xs font-bold text-white shadow-sm">STANDARD</span>
+          </div>
+          <p class="text-xs text-slate-500 mt-0.5">서울고등학교 2학년 3반 · 희망: 연세대 의예과</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 rounded-xl bg-gradient-to-r from-rose-50 to-pink-50 border border-rose-200 px-4 py-2.5">
+        <span class="text-2xl">📅</span>
+        <div class="text-right">
+          <p class="text-xs text-rose-400 font-medium">2026 수능까지</p>
+          <p class="text-2xl font-black text-rose-500 leading-none">D-238</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 flex items-start gap-2.5 rounded-xl bg-amber-50 border border-amber-200 px-3.5 py-2.5">
+      <span class="text-base mt-0.5">💡</span>
+      <div>
+        <p class="text-sm font-semibold text-amber-700">오늘의 추천 행동</p>
+        <p class="text-xs text-amber-600 mt-0.5">아직 <strong>물리학</strong> 세특을 한 번도 작성하지 않았어요. 지금 시작해볼까요?</p>
+      </div>
+      <button class="ml-auto shrink-0 rounded-lg bg-amber-400 px-3 py-1.5 text-xs font-bold text-white hover:bg-amber-500 transition-all">시작 →</button>
+    </div>
+  </div>
+
+  <!-- 세특 완성도 트래커 -->
+  <div class="mb-5 glass-card rounded-2xl p-4 sm:p-5">
+    <div class="flex items-center justify-between mb-3.5">
+      <h2 class="font-bold text-slate-800 text-base flex items-center gap-1.5"><span>📋</span> 세특 완성도 트래커</h2>
+      <span class="text-xs text-slate-500 bg-slate-100 rounded-full px-2.5 py-1">5/8 과목 진행중</span>
+    </div>
+    <div class="mb-4 rounded-xl bg-slate-50 p-3 border border-slate-100">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-xs text-slate-600 font-medium">전체 진행률</span>
+        <span class="text-xs font-bold text-purple-600">2 / 8 완성</span>
+      </div>
+      <div class="h-2.5 rounded-full bg-slate-200 overflow-hidden">
+        <div class="h-full rounded-full bg-gradient-to-r from-violet-400 to-pink-400 usage-bar-fill" style="width:25%"></div>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+      <button onclick="toggleSubject(this,'done')" data-state="done" class="subject-done rounded-2xl p-3.5 text-center transition-all hover:scale-105 active:scale-95 relative">
+        <span class="absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-fuchsia-500 text-white text-xs">✓</span>
+        <div class="text-3xl mb-1.5">📖</div>
+        <div class="font-bold text-sm text-fuchsia-800">국어</div>
+        <div class="text-xs text-fuchsia-600 mt-0.5 bg-white/40 rounded-full px-2 py-0.5">완성 ✨</div>
+      </button>
+      <button onclick="toggleSubject(this,'progress')" data-state="progress" class="subject-progress rounded-2xl p-3.5 text-center transition-all hover:scale-105 active:scale-95">
+        <div class="text-3xl mb-1.5">➕</div>
+        <div class="font-bold text-sm text-violet-800">수학</div>
+        <div class="text-xs text-violet-600 mt-0.5 bg-white/40 rounded-full px-2 py-0.5">3회 생성</div>
+      </button>
+      <button onclick="toggleSubject(this,'done')" data-state="done" class="subject-done rounded-2xl p-3.5 text-center transition-all hover:scale-105 active:scale-95 relative">
+        <span class="absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-fuchsia-500 text-white text-xs">✓</span>
+        <div class="text-3xl mb-1.5">🌐</div>
+        <div class="font-bold text-sm text-fuchsia-800">영어</div>
+        <div class="text-xs text-fuchsia-600 mt-0.5 bg-white/40 rounded-full px-2 py-0.5">완성 ✨</div>
+      </button>
+      <button onclick="toggleSubject(this,'progress')" data-state="progress" class="subject-progress rounded-2xl p-3.5 text-center transition-all hover:scale-105 active:scale-95">
+        <div class="text-3xl mb-1.5">🏛️</div>
+        <div class="font-bold text-sm text-violet-800">한국사</div>
+        <div class="text-xs text-violet-600 mt-0.5 bg-white/40 rounded-full px-2 py-0.5">1회 생성</div>
+      </button>
+      <button onclick="toggleSubject(this,'progress')" data-state="progress" class="subject-progress rounded-2xl p-3.5 text-center transition-all hover:scale-105 active:scale-95">
+        <div class="text-3xl mb-1.5">🌍</div>
+        <div class="font-bold text-sm text-violet-800">통합사회</div>
+        <div class="text-xs text-violet-600 mt-0.5 bg-white/40 rounded-full px-2 py-0.5">2회 생성</div>
+      </button>
+      <button onclick="openUpgradeModal()" data-state="none" class="subject-none rounded-2xl p-3.5 text-center transition-all hover:scale-105 active:scale-95 hover:border-rose-300 hover:bg-rose-50">
+        <div class="text-3xl mb-1.5 opacity-50">⚛️</div>
+        <div class="font-bold text-sm text-slate-500">물리학</div>
+        <div class="text-xs text-rose-400 mt-0.5 bg-rose-50 rounded-full px-2 py-0.5 font-semibold">미시작!</div>
+      </button>
+      <button onclick="toggleSubject(this,'progress')" data-state="progress" class="subject-progress rounded-2xl p-3.5 text-center transition-all hover:scale-105 active:scale-95">
+        <div class="text-3xl mb-1.5">🧪</div>
+        <div class="font-bold text-sm text-violet-800">화학</div>
+        <div class="text-xs text-violet-600 mt-0.5 bg-white/40 rounded-full px-2 py-0.5">1회 생성</div>
+      </button>
+      <button onclick="toggleSubject(this,'none')" data-state="none" class="subject-none rounded-2xl p-3.5 text-center transition-all hover:scale-105 active:scale-95">
+        <div class="text-3xl mb-1.5 opacity-50">🧬</div>
+        <div class="font-bold text-sm text-slate-500">생명과학</div>
+        <div class="text-xs text-slate-400 mt-0.5 bg-slate-100 rounded-full px-2 py-0.5">시작하기</div>
+      </button>
+    </div>
+    <p class="mt-3 text-center text-xs text-slate-400">카드를 클릭하면 바로 세특 작성 페이지로 이동해요</p>
+  </div>
+
+  <!-- 이번 달 사용 현황 -->
+  <div class="mb-5 glass-card rounded-2xl p-4 sm:p-5">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="font-bold text-slate-800 text-base flex items-center gap-1.5"><span>📊</span> 이번 달 사용 현황</h2>
+      <span class="text-xs text-slate-500">3월 리셋: 4월 1일</span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div class="rounded-xl bg-slate-50 border border-slate-100 p-3.5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-semibold text-slate-700">세특 생성</span>
+          <span class="text-sm font-bold text-amber-500">18 / 20회</span>
+        </div>
+        <div class="h-2.5 rounded-full bg-slate-200 overflow-hidden mb-1.5">
+          <div class="h-full rounded-full bg-gradient-to-r from-amber-400 to-orange-400 usage-bar-fill" style="width:90%"></div>
+        </div>
+        <p class="text-xs text-amber-600 font-medium">⚠️ 이번 달 2회만 남았어요!</p>
+      </div>
+      <div class="rounded-xl bg-slate-50 border border-slate-100 p-3.5">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-semibold text-slate-700">탐구보고서</span>
+          <span class="text-sm font-bold text-emerald-500">4 / 10회</span>
+        </div>
+        <div class="h-2.5 rounded-full bg-slate-200 overflow-hidden mb-1.5">
+          <div class="h-full rounded-full bg-gradient-to-r from-emerald-400 to-teal-400 usage-bar-fill" style="width:40%"></div>
+        </div>
+        <p class="text-xs text-slate-500">여유 있어요 👍</p>
+      </div>
+    </div>
+    <div class="mt-3 flex items-center justify-between rounded-xl bg-gradient-to-r from-violet-50 to-purple-50 border border-violet-200 px-3.5 py-2.5">
+      <div>
+        <p class="text-sm font-semibold text-violet-700">PREMIUM으로 업그레이드</p>
+        <p class="text-xs text-violet-500">세특 · 탐구 무제한 + 공유 링크 기능 포함</p>
+      </div>
+      <button onclick="openUpgradeModal()" class="shrink-0 rounded-xl bg-gradient-to-r from-violet-500 to-purple-500 px-4 py-2 text-xs font-bold text-white shadow-sm hover:shadow-violet-200 hover:scale-105 transition-all">업그레이드</button>
+    </div>
+  </div>
+
+  <!-- 최근 활동 -->
+  <div class="mb-5 glass-card rounded-2xl p-4 sm:p-5">
+    <div class="flex items-center justify-between mb-3.5">
+      <h2 class="font-bold text-slate-800 text-base flex items-center gap-1.5"><span>🕐</span> 최근 활동</h2>
+      <a href="#" class="text-xs text-violet-500 font-medium hover:text-violet-700">전체 이력 →</a>
+    </div>
+    <div class="space-y-2.5">
+      <div class="flex items-start gap-3 rounded-xl bg-slate-50 border border-slate-100 p-3 hover:border-violet-200 transition-all group">
+        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-400 to-purple-300 text-lg shadow-sm">➕</div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-0.5">
+            <span class="text-xs font-bold text-slate-700">수학 세특</span>
+            <span class="text-xs text-slate-400">3월 17일</span>
+            <span class="text-xs bg-violet-100 text-violet-600 rounded-full px-2 py-0.5 font-medium">498자</span>
+          </div>
+          <p class="text-xs text-slate-500 truncate">미적분의 극한 개념을 바탕으로 연속함수의 성질을 탐구하며 실생활에서의...</p>
+        </div>
+        <div class="flex gap-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-all">
+          <button class="rounded-lg bg-white border border-slate-200 px-2 py-1 text-xs text-slate-600 hover:bg-slate-50">복사</button>
+          <button class="rounded-lg bg-violet-500 px-2 py-1 text-xs text-white hover:bg-violet-600">재생성</button>
+        </div>
+      </div>
+      <div class="flex items-start gap-3 rounded-xl bg-slate-50 border border-slate-100 p-3 hover:border-violet-200 transition-all group">
+        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-400 to-sky-300 text-lg shadow-sm">📖</div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-0.5">
+            <span class="text-xs font-bold text-slate-700">국어 세특</span>
+            <span class="text-xs text-slate-400">3월 14일</span>
+            <span class="text-xs bg-blue-100 text-blue-600 rounded-full px-2 py-0.5 font-medium">503자</span>
+          </div>
+          <p class="text-xs text-slate-500 truncate">현대시 낭독 활동에서 이상화의 '빼앗긴 들에도 봄은 오는가'를 분석하며...</p>
+        </div>
+        <div class="flex gap-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-all">
+          <button class="rounded-lg bg-white border border-slate-200 px-2 py-1 text-xs text-slate-600 hover:bg-slate-50">복사</button>
+          <button class="rounded-lg bg-violet-500 px-2 py-1 text-xs text-white hover:bg-violet-600">재생성</button>
+        </div>
+      </div>
+      <div class="flex items-start gap-3 rounded-xl bg-slate-50 border border-slate-100 p-3 hover:border-violet-200 transition-all group">
+        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-teal-400 to-cyan-300 text-lg shadow-sm">🧪</div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-0.5">
+            <span class="text-xs font-bold text-slate-700">화학 탐구보고서</span>
+            <span class="text-xs text-slate-400">3월 10일</span>
+            <span class="text-xs bg-teal-100 text-teal-600 rounded-full px-2 py-0.5 font-medium">탐구</span>
+          </div>
+          <p class="text-xs text-slate-500 truncate">산-염기 중화반응을 이용한 식초 농도 측정 실험에서 NaOH 표준용액 0.1M을...</p>
+        </div>
+        <div class="flex gap-1.5 shrink-0 opacity-0 group-hover:opacity-100 transition-all">
+          <button class="rounded-lg bg-white border border-slate-200 px-2 py-1 text-xs text-slate-600 hover:bg-slate-50">복사</button>
+          <button class="rounded-lg bg-violet-500 px-2 py-1 text-xs text-white hover:bg-violet-600">재생성</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 친구 초대 -->
+  <div class="mb-5 rounded-2xl bg-gradient-to-r from-fuchsia-500 via-pink-500 to-rose-400 p-4 sm:p-5 text-white shadow-lg">
+    <div class="flex items-center justify-between gap-3">
+      <div>
+        <p class="font-bold text-base mb-0.5">친구 초대하면 세특 +3개!</p>
+        <p class="text-xs text-white/80">친구가 가입하면 둘 다 세특 3회 추가 지급</p>
+        <div class="mt-2 flex items-center gap-2">
+          <span class="rounded-lg bg-white/20 border border-white/30 px-3 py-1.5 text-sm font-black tracking-widest">KJS-847K</span>
+          <button onclick="copyCode()" class="rounded-lg bg-white/25 border border-white/40 px-3 py-1.5 text-xs font-semibold hover:bg-white/35 transition-all">복사</button>
+        </div>
+      </div>
+      <div class="text-5xl shrink-0">🎁</div>
+    </div>
+    <div class="mt-3 flex gap-2">
+      <button class="flex-1 rounded-xl bg-white/20 border border-white/30 py-2 text-xs font-bold hover:bg-white/30 transition-all">💬 카카오톡 공유</button>
+      <button class="flex-1 rounded-xl bg-white/20 border border-white/30 py-2 text-xs font-bold hover:bg-white/30 transition-all">🔗 링크 복사</button>
+    </div>
+  </div>
+</div>
+
+<!-- MY PAGE -->
+<div id="page-my" class="mx-auto max-w-4xl px-4 pb-16 hidden">
+  <div class="flex border-b border-slate-200 mb-5 mt-2 gap-0">
+    <button onclick="showMyTab('profile')" id="my-tab-profile" class="tab-active px-4 py-2.5 text-sm transition-all">👤 프로필</button>
+    <button onclick="showMyTab('subscription')" id="my-tab-subscription" class="tab-inactive px-4 py-2.5 text-sm transition-all">💳 구독</button>
+    <button onclick="showMyTab('portfolio')" id="my-tab-portfolio" class="tab-inactive px-4 py-2.5 text-sm transition-all">📁 포트폴리오</button>
+    <button onclick="showMyTab('notification')" id="my-tab-notification" class="tab-inactive px-4 py-2.5 text-sm transition-all">🔔 알림</button>
+  </div>
+
+  <!-- 프로필 탭 -->
+  <div id="my-content-profile" class="slide-up">
+    <div class="glass-card rounded-2xl p-4 sm:p-5 mb-4">
+      <h2 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-1.5"><span>👤</span> 기본 정보</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div><label class="block text-xs font-semibold text-slate-600 mb-1.5">이름</label><input type="text" value="김지수" class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all" /></div>
+        <div><label class="block text-xs font-semibold text-slate-600 mb-1.5">학교명</label><input type="text" value="서울고등학교" class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-violet-400 transition-all" /></div>
+        <div><label class="block text-xs font-semibold text-slate-600 mb-1.5">학년</label><select class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-violet-400 transition-all"><option>고1</option><option selected>고2</option><option>고3</option></select></div>
+        <div><label class="block text-xs font-semibold text-slate-600 mb-1.5">반 / 번호</label><div class="flex gap-2"><input type="number" value="3" placeholder="반" class="w-1/2 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-violet-400 transition-all" /><input type="number" value="12" placeholder="번호" class="w-1/2 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-violet-400 transition-all" /></div></div>
+      </div>
+    </div>
+    <div class="glass-card rounded-2xl p-4 sm:p-5 mb-4">
+      <h2 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-1.5"><span>🎯</span> 진로 목표</h2>
+      <div class="space-y-3">
+        <div><label class="block text-xs font-semibold text-slate-600 mb-1.5">희망 대학</label><input type="text" value="연세대학교" class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-violet-400 transition-all" /></div>
+        <div><label class="block text-xs font-semibold text-slate-600 mb-1.5">희망 학과/계열</label><input type="text" value="의예과" class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-violet-400 transition-all" /></div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1.5">관심 진로 태그 (최대 3개)</label>
+          <div class="flex flex-wrap gap-2 mb-2">
+            <span class="flex items-center gap-1.5 rounded-full bg-violet-100 border border-violet-200 px-3 py-1.5 text-xs font-medium text-violet-700">의학 <button class="text-violet-400 hover:text-violet-600">×</button></span>
+            <span class="flex items-center gap-1.5 rounded-full bg-violet-100 border border-violet-200 px-3 py-1.5 text-xs font-medium text-violet-700">과학 <button class="text-violet-400 hover:text-violet-600">×</button></span>
+            <span class="flex items-center gap-1.5 rounded-full bg-violet-100 border border-violet-200 px-3 py-1.5 text-xs font-medium text-violet-700">연구 <button class="text-violet-400 hover:text-violet-600">×</button></span>
+          </div>
+          <p class="text-xs text-slate-400">3개 선택 완료. 변경하려면 기존 태그를 삭제해주세요.</p>
+        </div>
+        <div><label class="block text-xs font-semibold text-slate-600 mb-1.5">수능 응시일</label><input type="date" value="2026-11-19" class="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:border-violet-400 transition-all" /></div>
+      </div>
+    </div>
+    <button class="w-full rounded-2xl bg-gradient-to-r from-violet-500 to-pink-500 py-3.5 text-sm font-bold text-white shadow-md hover:shadow-violet-200 hover:scale-[1.01] transition-all">저장하기</button>
+  </div>
+
+  <!-- 구독 탭 -->
+  <div id="my-content-subscription" class="slide-up hidden">
+    <div class="glass-card rounded-2xl p-4 sm:p-5 mb-4">
+      <h2 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-1.5"><span>💳</span> 현재 구독 플랜</h2>
+      <div class="rounded-2xl bg-gradient-to-r from-violet-500 to-purple-600 p-4 text-white mb-4">
+        <div class="flex items-center justify-between">
+          <div><div class="flex items-center gap-2 mb-1"><span class="text-xl font-black">STANDARD</span><span class="rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold">구독중</span></div><p class="text-white/80 text-sm">월 9,900원</p></div>
+          <div class="text-right text-sm"><p class="text-white/70 text-xs">다음 결제일</p><p class="font-bold">2026-04-19</p></div>
+        </div>
+        <div class="mt-3 border-t border-white/20 pt-3 grid grid-cols-2 gap-2 text-xs">
+          <div>✓ 세특 20회/월</div><div>✓ 탐구보고서 10회/월</div>
+          <div>✓ 히스토리 무제한</div><div>✓ PDF 일괄 다운로드</div>
+        </div>
+      </div>
+      <div class="rounded-xl border border-violet-100 bg-violet-50 p-3.5 mb-4">
+        <p class="text-sm font-semibold text-violet-700 mb-2.5">PREMIUM으로 업그레이드하면?</p>
+        <div class="space-y-1.5 text-xs text-violet-600">
+          <div class="flex items-center gap-2"><span class="text-fuchsia-500">+</span> 세특·탐구 무제한 생성</div>
+          <div class="flex items-center gap-2"><span class="text-fuchsia-500">+</span> 선생님 공유 링크 기능</div>
+          <div class="flex items-center gap-2"><span class="text-fuchsia-500">+</span> A/B 비교 고급 기능</div>
+          <div class="flex items-center gap-2"><span class="text-fuchsia-500">+</span> 우선 고객 지원</div>
+        </div>
+        <button onclick="openUpgradeModal()" class="mt-3 w-full rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-2.5 text-sm font-bold text-white hover:scale-[1.01] transition-all">PREMIUM 월 19,900원으로 업그레이드</button>
+      </div>
+      <div class="rounded-xl bg-slate-50 border border-slate-100 p-3.5">
+        <p class="text-sm font-semibold text-slate-700 mb-2">결제 수단</p>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="flex h-9 w-14 items-center justify-center rounded-lg bg-slate-200 text-xs font-bold text-slate-600">VISA</div>
+            <div><p class="text-sm font-medium text-slate-700">•••• •••• •••• 4242</p><p class="text-xs text-slate-400">만료: 09/28</p></div>
+          </div>
+          <button class="text-xs text-violet-500 font-medium hover:text-violet-700">변경</button>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-6 mb-2">
+      <button class="text-xs text-slate-300 hover:text-slate-500 transition-all underline underline-offset-2">구독 취소하기</button>
+    </div>
+  </div>
+
+  <!-- 포트폴리오 탭 -->
+  <div id="my-content-portfolio" class="slide-up hidden">
+    <div class="flex gap-1.5 overflow-x-auto pb-2 mb-4">
+      <button class="shrink-0 rounded-full bg-violet-500 px-3 py-1.5 text-xs font-bold text-white">전체 (14)</button>
+      <button class="shrink-0 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-200">📖 국어 (3)</button>
+      <button class="shrink-0 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-200">➕ 수학 (3)</button>
+      <button class="shrink-0 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-200">🌐 영어 (2)</button>
+      <button class="shrink-0 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-200">🧪 화학 (3)</button>
+      <button class="shrink-0 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-200">🌍 사회 (2)</button>
+    </div>
+    <div class="glass-card rounded-2xl p-3.5 mb-4 flex items-center justify-between">
+      <div><p class="text-sm font-semibold text-slate-700">PDF 일괄 다운로드</p><p class="text-xs text-slate-500">전체 14개 세특을 PDF로 저장</p></div>
+      <button class="rounded-xl bg-slate-800 px-4 py-2 text-xs font-bold text-white hover:bg-slate-700 transition-all">전체 다운로드</button>
+    </div>
+    <div class="space-y-2.5">
+      <div class="glass-card rounded-2xl p-3.5">
+        <div class="flex items-start justify-between mb-2">
+          <div class="flex items-center gap-2"><span class="text-xl">➕</span><div><span class="text-sm font-bold text-slate-800">수학 세특</span><span class="ml-2 text-xs text-slate-400">2026-03-17</span></div></div>
+          <span class="text-xs bg-violet-100 text-violet-600 rounded-full px-2 py-0.5">498자</span>
+        </div>
+        <p class="text-xs text-slate-500 mb-2.5">미적분의 극한 개념을 바탕으로 연속함수의 성질을 탐구하며 실생활에서의 응용 사례를 분석하였다...</p>
+        <div class="flex gap-1.5">
+          <button class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50">복사</button>
+          <button class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50">PDF</button>
+          <button class="rounded-lg border border-violet-200 bg-violet-50 px-3 py-1.5 text-xs text-violet-600 hover:bg-violet-100 flex items-center gap-1">🔗 공유 링크 <span class="ml-1 text-[9px] rounded bg-fuchsia-100 text-fuchsia-500 px-1 py-0.5 font-bold">PRO</span></button>
+        </div>
+      </div>
+      <div class="glass-card rounded-2xl p-3.5">
+        <div class="flex items-start justify-between mb-2">
+          <div class="flex items-center gap-2"><span class="text-xl">📖</span><div><span class="text-sm font-bold text-slate-800">국어 세특</span><span class="ml-2 text-xs text-slate-400">2026-03-14</span></div></div>
+          <span class="text-xs bg-blue-100 text-blue-600 rounded-full px-2 py-0.5">503자</span>
+        </div>
+        <p class="text-xs text-slate-500 mb-2.5">현대시 낭독 활동에서 이상화의 '빼앗긴 들에도 봄은 오는가'를 분석하며 저항시의 문학적 가치와 역사적 배경...</p>
+        <div class="flex gap-1.5">
+          <button class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50">복사</button>
+          <button class="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-50">PDF</button>
+          <button class="rounded-lg border border-violet-200 bg-violet-50 px-3 py-1.5 text-xs text-violet-600 hover:bg-violet-100 flex items-center gap-1">🔗 공유 링크 <span class="ml-1 text-[9px] rounded bg-fuchsia-100 text-fuchsia-500 px-1 py-0.5 font-bold">PRO</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 알림 설정 탭 -->
+  <div id="my-content-notification" class="slide-up hidden">
+    <div class="glass-card rounded-2xl p-4 sm:p-5">
+      <h2 class="font-bold text-slate-800 text-base mb-4 flex items-center gap-1.5"><span>🔔</span> 알림 설정</h2>
+      <div class="space-y-0 divide-y divide-slate-100">
+        <div class="flex items-center justify-between py-3.5">
+          <div><p class="text-sm font-semibold text-slate-700">마감 임박 알림</p><p class="text-xs text-slate-500">수능 D-30, D-14, D-7일에 알림</p></div>
+          <button onclick="toggleSwitch(this)" class="relative h-6 w-11 rounded-full bg-violet-500 transition-colors"><span class="absolute top-0.5 right-0.5 h-5 w-5 rounded-full bg-white shadow transition-all"></span></button>
+        </div>
+        <div class="flex items-center justify-between py-3.5">
+          <div><p class="text-sm font-semibold text-slate-700">세특 미완성 알림</p><p class="text-xs text-slate-500">완성되지 않은 과목이 있을 때 매주 일요일</p></div>
+          <button onclick="toggleSwitch(this)" class="relative h-6 w-11 rounded-full bg-violet-500 transition-colors"><span class="absolute top-0.5 right-0.5 h-5 w-5 rounded-full bg-white shadow transition-all"></span></button>
+        </div>
+        <div class="flex items-center justify-between py-3.5">
+          <div><p class="text-sm font-semibold text-slate-700">신기능 & 업데이트</p><p class="text-xs text-slate-500">새로운 기능이 추가될 때</p></div>
+          <button onclick="toggleSwitch(this)" class="relative h-6 w-11 rounded-full bg-violet-500 transition-colors"><span class="absolute top-0.5 right-0.5 h-5 w-5 rounded-full bg-white shadow transition-all"></span></button>
+        </div>
+        <div class="flex items-center justify-between py-3.5">
+          <div><p class="text-sm font-semibold text-slate-700">이벤트 & 프로모션</p><p class="text-xs text-slate-500">할인 및 이벤트 정보</p></div>
+          <button onclick="toggleSwitch(this)" class="relative h-6 w-11 rounded-full bg-slate-200 transition-colors"><span class="absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-all"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPGRADE MODAL -->
+<div id="upgrade-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/40" style="backdrop-filter:blur(4px)">
+  <div class="w-full max-w-md rounded-t-3xl sm:rounded-3xl bg-white p-6 slide-up">
+    <div class="text-center mb-5">
+      <div class="text-4xl mb-2">🚀</div>
+      <h3 class="text-lg font-black text-slate-800">이번 달 한도를 모두 사용했어요!</h3>
+      <p class="text-sm text-slate-500 mt-1">업그레이드하고 계속 작성하세요</p>
+    </div>
+    <div class="grid grid-cols-2 gap-3 mb-5">
+      <div class="rounded-2xl border-2 border-slate-200 p-3.5 text-center">
+        <div class="text-xs font-bold text-slate-500 mb-1">현재 STANDARD</div>
+        <div class="text-lg font-black text-slate-700">9,900원</div>
+        <div class="text-xs text-slate-400 mt-0.5">/월</div>
+        <div class="mt-2 space-y-1 text-xs text-slate-500"><div>세특 20회/월</div><div>탐구 10회/월</div></div>
+      </div>
+      <div class="rounded-2xl border-2 border-violet-400 bg-gradient-to-b from-violet-50 to-white p-3.5 text-center" style="position:relative">
+        <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%)"><span class="bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full px-3 py-0.5 text-[10px] font-black text-white whitespace-nowrap">추천</span></div>
+        <div class="text-xs font-bold text-violet-600 mb-1">PREMIUM</div>
+        <div class="text-lg font-black text-violet-700">19,900원</div>
+        <div class="text-xs text-violet-400 mt-0.5">/월</div>
+        <div class="mt-2 space-y-1 text-xs text-violet-600"><div class="font-semibold">세특 무제한</div><div class="font-semibold">탐구 무제한</div><div>공유 링크 포함</div></div>
+      </div>
+    </div>
+    <button onclick="closeModal()" class="w-full rounded-2xl bg-gradient-to-r from-violet-500 to-fuchsia-500 py-3.5 text-sm font-black text-white shadow-lg hover:shadow-violet-200 transition-all mb-2">PREMIUM으로 업그레이드 (월 19,900원)</button>
+    <button onclick="closeModal()" class="w-full py-2 text-sm text-slate-400 hover:text-slate-600 transition-all">다음 달까지 기다리기</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden rounded-2xl bg-slate-800 px-5 py-3 text-sm font-medium text-white shadow-xl slide-up">추천 코드가 복사되었어요!</div>
+
+<script>
+  function showPage(page) {
+    document.getElementById('page-dashboard').classList.toggle('hidden', page !== 'dashboard');
+    document.getElementById('page-my').classList.toggle('hidden', page !== 'my');
+  }
+
+  function showMyTab(tab) {
+    ['profile','subscription','portfolio','notification'].forEach(t => {
+      document.getElementById('my-content-' + t).classList.add('hidden');
+      document.getElementById('my-tab-' + t).className = 'tab-inactive px-4 py-2.5 text-sm transition-all';
+    });
+    document.getElementById('my-content-' + tab).classList.remove('hidden');
+    document.getElementById('my-tab-' + tab).className = 'tab-active px-4 py-2.5 text-sm transition-all';
+  }
+
+  function toggleSubject(btn, currentState) {
+    if (currentState === 'done') {
+      btn.dataset.state = 'progress';
+      btn.className = btn.className.replace('subject-done', 'subject-progress');
+      btn.querySelector('.absolute')?.remove();
+    } else if (currentState === 'progress') {
+      btn.dataset.state = 'done';
+      btn.className = btn.className.replace('subject-progress', 'subject-done');
+      const badge = document.createElement('span');
+      badge.className = 'absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-fuchsia-500 text-white text-xs';
+      badge.textContent = '✓';
+      btn.prepend(badge);
+    }
+  }
+
+  function openUpgradeModal() {
+    const modal = document.getElementById('upgrade-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+  function closeModal() {
+    const modal = document.getElementById('upgrade-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+  document.getElementById('upgrade-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function toggleSwitch(btn) {
+    const isOn = btn.classList.contains('bg-violet-500');
+    if (isOn) {
+      btn.classList.replace('bg-violet-500', 'bg-slate-200');
+      btn.querySelector('span').classList.replace('right-0.5', 'left-0.5');
+    } else {
+      btn.classList.replace('bg-slate-200', 'bg-violet-500');
+      btn.querySelector('span').classList.replace('left-0.5', 'right-0.5');
+    }
+  }
+
+  function copyCode() {
+    const toast = document.getElementById('toast');
+    toast.classList.remove('hidden');
+    setTimeout(() => toast.classList.add('hidden'), 2000);
+  }
+</script>
+</body>
+</html>

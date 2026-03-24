@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import BatchSubjectSelector from '@/components/features/BatchSubjectSelector';
 import SourceList from '@/components/features/SourceList';
+import UpgradeModal from '@/components/upsell/UpgradeModal';
 import type { LengthOption, ToneOption, TeacherStyle, SourceItem } from '@/types';
 import type { BatchItem } from '@/components/features/BatchSubjectSelector';
 
@@ -35,6 +37,7 @@ function CopyButton({ text }: { text: string }) {
 
 export default function BatchPage() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [items, setItems] = useState<BatchItem[]>([]);
   const [length, setLength] = useState<LengthOption>('medium');
   const [tone, setTone] = useState<ToneOption>('neutral');
@@ -46,10 +49,24 @@ export default function BatchPage() {
   const [activeTab, setActiveTab] = useState(0);
   const [sourcesMap, setSourcesMap] = useState<Record<number, SourceItem[]>>({});
   const [sourcesLoadingSet, setSourcesLoadingSet] = useState<Set<number>>(new Set());
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   const canGenerate = items.length > 0 && items.every((item) => item.topic.trim().length > 0);
 
   const handleGenerate = async () => {
+    // 로그인 상태면 사용량 체크 (배치 1회 = seteok 1회로 처리)
+    if (session?.user) {
+      const checkRes = await fetch('/api/usage/check?type=seteok');
+      if (checkRes.ok) {
+        const checkData = await checkRes.json() as { allowed: boolean; remaining: number | null };
+        // 남은 횟수가 items.length보다 적으면 차단
+        if (!checkData.allowed || (checkData.remaining !== null && checkData.remaining < items.length)) {
+          setShowUpgradeModal(true);
+          return;
+        }
+      }
+    }
+
     setLoading(true);
     setError(null);
     setResults([]);
@@ -79,6 +96,34 @@ export default function BatchPage() {
       setResults(data.results);
       setActiveTab(0);
       setSourcesMap({});
+
+      // 로그인 상태면 사용량 증가 (배치 과목 수만큼)
+      if (session?.user) {
+        await Promise.all(
+          data.results.map(() =>
+            fetch('/api/usage/increment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ type: 'seteok' }),
+            })
+          )
+        );
+        // DB 이력 저장
+        await Promise.all(
+          (data.results as BatchResult[]).flatMap((r) => [
+            fetch('/api/history', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ subjectId: r.subjectId, subjectName: r.subjectName, type: 'report', topic: r.topic, content: r.report, charCount: r.report.length }),
+            }),
+            fetch('/api/history', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ subjectId: r.subjectId, subjectName: r.subjectName, type: 'seteok', topic: r.topic, content: r.setech, charCount: r.setech.length }),
+            }),
+          ])
+        );
+      }
 
       // 각 결과에 대해 참고문헌 병렬 생성
       data.results.forEach((r: BatchResult, i: number) => {
@@ -183,6 +228,13 @@ export default function BatchPage() {
           )}
         </>
       )}
+
+      <UpgradeModal
+        isOpen={showUpgradeModal}
+        onClose={() => setShowUpgradeModal(false)}
+        trigger="limit_exceeded"
+        currentPlan={(session?.user?.plan as 'free' | 'standard') ?? 'free'}
+      />
 
       {/* Results */}
       {results.length > 0 && (

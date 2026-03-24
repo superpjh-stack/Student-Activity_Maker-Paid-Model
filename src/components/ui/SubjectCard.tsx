@@ -5,7 +5,7 @@ import { Subject } from '@/types';
 const GRADIENT_MAP: Record<string, { gradient: string; shadow: string; ring: string; badge: string }> = {
   blue:    { gradient: 'from-blue-400 to-sky-300',    shadow: 'hover:shadow-blue-200',    ring: 'ring-blue-400',    badge: 'bg-blue-500' },
   green:   { gradient: 'from-emerald-400 to-teal-300',shadow: 'hover:shadow-emerald-200', ring: 'ring-emerald-400', badge: 'bg-emerald-500' },
-  red:     { gradient: 'from-rose-400 to-pink-300',   shadow: 'hover:shadow-rose-200',    ring: 'ring-rose-400',    badge: 'bg-rose-500' },
+  red:     { gradient: 'from-pink-300 to-rose-200',   shadow: 'hover:shadow-pink-200',    ring: 'ring-pink-300',    badge: 'bg-pink-400' },
   yellow:  { gradient: 'from-amber-400 to-yellow-300',shadow: 'hover:shadow-amber-200',   ring: 'ring-amber-400',   badge: 'bg-amber-500' },
   purple:  { gradient: 'from-violet-400 to-purple-300',shadow: 'hover:shadow-violet-200', ring: 'ring-violet-400',  badge: 'bg-violet-500' },
   emerald: { gradient: 'from-teal-400 to-cyan-300',   shadow: 'hover:shadow-teal-200',    ring: 'ring-teal-400',    badge: 'bg-teal-500' },
@@ -30,7 +30,7 @@ export default function SubjectCard({ subject, selected, onClick }: SubjectCardP
         transition-all duration-200 card-hover active:scale-95
         ${selected
           ? `bg-gradient-to-br ${g.gradient} shadow-lg ${g.shadow} ring-2 ${g.ring} ring-offset-2`
-          : 'glass-card hover:border-violet-200'
+          : 'glass-card hover:border-pink-200'
         }
       `}
     >

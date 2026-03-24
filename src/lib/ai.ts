@@ -395,6 +395,209 @@ ${teacherStyleContext}
   return response.choices[0]?.message?.content ?? '';
 }
 
+// ─── KF-01: 생기부 건강 진단 ───────────────────────────────────────────────
+
+export interface DiagnosisItem {
+  id: string;
+  name: string;
+  score: number;
+  weight: number;
+  feedback: string;
+}
+
+export interface DiagnosisResult {
+  items: DiagnosisItem[];
+  totalScore: number;
+  weakPoints: string[];
+  message: string;
+}
+
+export async function generateDiagnosis(
+  text: string,
+  type: 'seteok' | 'report'
+): Promise<DiagnosisResult> {
+  const typeLabel = type === 'seteok' ? '세특(세부능력및특기사항)' : '탐구보고서';
+
+  const response = await getClient().chat.completions.create({
+    model: 'gpt-4o',
+    max_tokens: 1500,
+    response_format: { type: 'json_object' },
+    messages: [
+      {
+        role: 'user',
+        content: `당신은 한국 대입 입시 전문가입니다. 다음 ${typeLabel}을 분석하여 7개 항목을 JSON으로 평가해주세요.
+
+[평가 기준]
+1. authenticity (진정성): 1인칭 경험 서술, 구체적 에피소드 비율 (가중치 0.25)
+2. major_alignment (전공연계성): 희망 학과 키워드 밀도, 진로 연결 명확성 (가중치 0.20)
+3. logic_structure (논리구조): 도입-전개-결론 완결성, 인과관계 명확성 (가중치 0.15)
+4. depth (심화깊이): 단순 요약 vs 자기 해석/확장 비율 (가중치 0.20)
+5. language_variety (언어다양성): 반복 단어 빈도, 문장 구조 다양성 (가중치 0.10)
+6. ai_risk (AI감지리스크): AI 특유 표현 패턴 — 낮을수록 좋음, score 0이 최악 100이 최고 (가중치 0.10)
+7. completeness (완성도): 권장 분량 대비 충족률, Pass=100 Fail=0
+
+[분석할 텍스트]
+${text}
+
+[응답 형식] JSON만 반환 (설명 없이):
+{
+  "items": [
+    { "id": "authenticity", "name": "진정성", "score": 75, "weight": 0.25, "feedback": "구체적인 경험 서술이 있으나 에피소드가 더 필요합니다." },
+    { "id": "major_alignment", "name": "전공연계성", "score": 60, "weight": 0.20, "feedback": "진로 연결이 결론에만 언급되어 있습니다." },
+    { "id": "logic_structure", "name": "논리구조", "score": 80, "weight": 0.15, "feedback": "도입-전개-결론이 명확합니다." },
+    { "id": "depth", "name": "심화깊이", "score": 55, "weight": 0.20, "feedback": "자기 해석보다 요약이 많습니다." },
+    { "id": "language_variety", "name": "언어다양성", "score": 70, "weight": 0.10, "feedback": "반복 표현이 일부 있습니다." },
+    { "id": "ai_risk", "name": "AI감지리스크", "score": 65, "weight": 0.10, "feedback": "AI 특유 표현이 일부 감지됩니다." },
+    { "id": "completeness", "name": "완성도", "score": 100, "weight": 0, "feedback": "분량이 충분합니다." }
+  ],
+  "totalScore": 68,
+  "weakPoints": ["depth", "major_alignment"],
+  "message": ""
+}`,
+      },
+    ],
+  });
+
+  try {
+    const raw = JSON.parse(response.choices[0]?.message?.content ?? '{}') as DiagnosisResult;
+    raw.message = getDiagnosisMessage(raw.totalScore);
+    return raw;
+  } catch {
+    throw new Error('진단 결과 파싱 실패');
+  }
+}
+
+function getDiagnosisMessage(score: number): string {
+  if (score < 50) return '솔직히 말하면, 지금 이 글은 입시에서 기억에 남지 않을 확률이 높아요.';
+  if (score < 65) return '가능성은 있지만, 사정관의 시선을 붙잡기엔 조금 더 다듬어야 해요.';
+  if (score < 80) return '준비가 잘 되고 있어요. 취약한 항목만 보완하면 강해집니다.';
+  return '이 정도면 사정관의 시선을 멈출 수 있어요. 한 단계만 더!';
+}
+
+// ─── KF-04: 주제 희소성 스코어 ────────────────────────────────────────────
+
+export interface TopicAngle {
+  title: string;
+  targetMajor: string;
+  competitionLevel: 'low' | 'medium' | 'high';
+  emoji: string;
+}
+
+export interface TopicRarityResult {
+  rarityScore: number;
+  competitionLevel: 'low' | 'medium' | 'high';
+  angles: TopicAngle[];
+}
+
+export async function generateTopicRarity(
+  subjectName: string,
+  topic: string
+): Promise<TopicRarityResult> {
+  const response = await getClient().chat.completions.create({
+    model: 'gpt-4o',
+    max_tokens: 1200,
+    response_format: { type: 'json_object' },
+    messages: [
+      {
+        role: 'user',
+        content: `당신은 한국 고등학교 입시 전문가입니다.
+
+다음 탐구 주제의 "입시 경쟁 밀도"를 추정하고, 차별화된 탐구 각도 5가지를 JSON으로 제안하세요.
+
+- 과목: ${subjectName}
+- 주제: ${topic}
+
+[경쟁 밀도 기준]
+- high: 매년 수만 명이 탐구하는 일반적인 주제 (rarityScore 10~35)
+- medium: 적당히 알려진 주제 (rarityScore 36~65)
+- low: 독창적이거나 특수한 관점 (rarityScore 66~95)
+
+[응답 형식] JSON만 반환:
+{
+  "rarityScore": 30,
+  "competitionLevel": "high",
+  "angles": [
+    { "title": "수직 농업 환경에서 인공광 파장별 광합성 효율 비교", "targetMajor": "농업공학, 식품공학", "competitionLevel": "low", "emoji": "🔬" },
+    { "title": "광감각제를 이용한 암 치료(PDT)에서의 광합성 원리 응용", "targetMajor": "의예과, 약학", "competitionLevel": "low", "emoji": "💊" },
+    { "title": "식물 광수용체 메커니즘의 바이오센서 응용 가능성", "targetMajor": "전자공학, 생명공학", "competitionLevel": "low", "emoji": "🤖" },
+    { "title": "고온·건조 스트레스 조건에서 C4 식물의 적응 전략", "targetMajor": "환경학, 생태학", "competitionLevel": "medium", "emoji": "🌿" },
+    { "title": "태양전지 효율 개선을 위한 광합성 전자전달계 모방 연구", "targetMajor": "에너지공학, 화학공학", "competitionLevel": "low", "emoji": "⚡" }
+  ]
+}`,
+      },
+    ],
+  });
+
+  try {
+    return JSON.parse(response.choices[0]?.message?.content ?? '{}') as TopicRarityResult;
+  } catch {
+    throw new Error('희소성 분석 결과 파싱 실패');
+  }
+}
+
+// ─── KF-05: 진로 키워드 DNA ────────────────────────────────────────────────
+
+export interface DnaActivity {
+  name: string;
+}
+
+export interface DnaResult {
+  keywords: string[];
+  identity: string;
+  description: string;
+  recommendedMajors: string[];
+  activities: DnaActivity[];
+  sharableText: string;
+}
+
+export async function generateDna(
+  historyItems: { subjectName: string; topic: string; type: string }[]
+): Promise<DnaResult> {
+  const historyText = historyItems
+    .map((h) => `[${h.subjectName}] ${h.topic} (${h.type === 'seteok' ? '세특' : '탐구보고서'})`)
+    .join('\n');
+
+  const response = await getClient().chat.completions.create({
+    model: 'gpt-4o',
+    max_tokens: 1000,
+    response_format: { type: 'json_object' },
+    messages: [
+      {
+        role: 'user',
+        content: `당신은 대학 입시 전문 카운슬러입니다.
+아래 고등학생의 탐구/세특 히스토리를 분석하여 이 학생의 "학문적 정체성"을 발굴해주세요.
+
+[탐구 히스토리]
+${historyText}
+
+[분석 관점]
+- 반복적으로 나타나는 주제/관심사 패턴
+- 탐구 스타일 (실험형, 이론형, 사회연계형 등)
+- 가장 강하게 드러나는 역량
+
+[응답 형식] JSON만 반환:
+{
+  "keywords": ["데이터 분석", "에너지 전환", "사회 문제 해결"],
+  "identity": "수치 뒤 패턴을 찾는 분석형 탐구자",
+  "description": "이 학생은 수치와 데이터를 통해 현상의 본질을 파악하려는 강한 탐구 성향을 보입니다...",
+  "recommendedMajors": ["환경공학", "에너지경제학"],
+  "activities": [
+    { "name": "한국에너지공단 청소년 탐구 공모전" },
+    { "name": "환경부 청소년 환경 챌린지" }
+  ],
+  "sharableText": "AI가 분석한 내 학문적 정체성: '수치 뒤 패턴을 찾는 분석형 탐구자' 🧬"
+}`,
+      },
+    ],
+  });
+
+  try {
+    return JSON.parse(response.choices[0]?.message?.content ?? '{}') as DnaResult;
+  } catch {
+    throw new Error('DNA 분석 결과 파싱 실패');
+  }
+}
+
 export async function generateSources(params: {
   subject: string;
   topic: string;

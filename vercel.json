@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/email/deadline",
+      "schedule": "0 22 * * *"
+    },
+    {
+      "path": "/api/email/weekly-report",
+      "schedule": "0 22 * * 0"
+    },
+    {
+      "path": "/api/email/reactivation",
+      "schedule": "0 23 * * *"
+    }
+  ]
+}

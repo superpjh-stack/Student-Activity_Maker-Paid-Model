@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { getSubjectById } from '@/lib/subjects';
 import { saveHistoryItem } from '@/lib/history';
 import { exportToDocx } from '@/lib/docx-export';
@@ -9,6 +10,7 @@ import { loadProfile, saveProfile } from '@/lib/profile';
 import ResultDisplay from '@/components/features/ResultDisplay';
 import AbCompareView from '@/components/features/AbCompareView';
 import ProfileSetupModal from '@/components/features/ProfileSetupModal';
+import UpgradeModal from '@/components/upsell/UpgradeModal';
 import type { LengthOption, ToneOption, TeacherStyle, HistoryItem, StreamingState, UserProfile, AbGenerateResponse, SourceItem } from '@/types';
 import { TEACHER_STYLE_LABELS } from '@/types';
 import SourceList from '@/components/features/SourceList';
@@ -122,6 +124,7 @@ const STEPS = ['과목 선택', '주제 선택', 'AI 생성'];
 function GeneratePageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { data: session } = useSession();
 
   const subjectId = searchParams.get('subject') || '';
   const topic = searchParams.get('topic') || '';
@@ -155,6 +158,8 @@ function GeneratePageContent() {
 
   const [sources, setSources] = useState<SourceItem[]>([]);
   const [sourcesLoading, setSourcesLoading] = useState(false);
+
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   useEffect(() => {
     setProfile(loadProfile());
@@ -190,6 +195,18 @@ function GeneratePageContent() {
   };
 
   const handleGenerate = async () => {
+    // 로그인 상태면 사용량 체크
+    if (session?.user) {
+      const checkRes = await fetch('/api/usage/check?type=seteok');
+      if (checkRes.ok) {
+        const checkData = await checkRes.json() as { allowed: boolean };
+        if (!checkData.allowed) {
+          setShowUpgradeModal(true);
+          return;
+        }
+      }
+    }
+
     setError(null);
     setReport('');
     setSetech('');
@@ -222,6 +239,42 @@ function GeneratePageContent() {
       });
       setSetechStreamState('done');
       persistHistory(finalReport, finalSetech);
+
+      // 로그인 상태면 사용량 카운트 + DB 이력 저장
+      if (session?.user) {
+        await fetch('/api/usage/increment', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'seteok' }),
+        });
+        // DB에 보고서 + 세특 이력 저장
+        await Promise.all([
+          fetch('/api/history', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              subjectId: subject.id,
+              subjectName: subject.name,
+              type: 'report',
+              topic,
+              content: finalReport,
+              charCount: finalReport.length,
+            }),
+          }),
+          fetch('/api/history', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              subjectId: subject.id,
+              subjectName: subject.name,
+              type: 'seteok',
+              topic,
+              content: finalSetech,
+              charCount: finalSetech.length,
+            }),
+          }),
+        ]);
+      }
 
       // 참고문헌 생성 (백그라운드)
       setSourcesLoading(true);
@@ -526,6 +579,14 @@ function GeneratePageContent() {
           />
         )}
       </div>
+
+      {/* ── Upgrade modal (usage limit) ── */}
+      <UpgradeModal
+        isOpen={showUpgradeModal}
+        onClose={() => setShowUpgradeModal(false)}
+        trigger="limit_exceeded"
+        currentPlan={(session?.user?.plan as 'free' | 'standard') ?? 'free'}
+      />
 
       {/* ── Profile modal ── */}
       <ProfileSetupModal

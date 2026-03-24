@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  school        String?
+  grade         Int?
+  classNumber   Int?      @map("class_number")
+  targetUniv    String?   @map("target_univ")
+  targetMajor   String?   @map("target_major")
+  careerTags    String[]  @default([]) @map("career_tags")
+  examDate      DateTime? @map("exam_date")
+  referralCode  String    @unique @default("") @map("referral_code")
+  password      String?
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  subscription   Subscription?
+  usageRecords   UsageRecord[]
+  usageCredits   UsageCredit[]
+  seteokHistory  SeteokHistory[]
+  referralsGiven Referral[] @relation("Referrer")
+  referralUsed   Referral?  @relation("Referee")
+
+  @@map("users")
+}
+
+model Subscription {
+  id                 String    @id @default(uuid())
+  userId             String    @unique @map("user_id")
+  plan               String    @default("free")
+  status             String    @default("active")
+  currentPeriodStart DateTime  @default(now()) @map("current_period_start")
+  currentPeriodEnd   DateTime  @default(now()) @map("current_period_end")
+  cancelAtPeriodEnd  Boolean   @default(false) @map("cancel_at_period_end")
+  tossBillingKey     String?   @map("toss_billing_key")
+  tossCustomerKey    String?   @map("toss_customer_key")
+  cancelledAt        DateTime? @map("cancelled_at")
+  cancellationReason String?   @map("cancellation_reason")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}
+
+model UsageRecord {
+  id      String @id @default(uuid())
+  userId  String @map("user_id")
+  type    String
+  month   String
+  count   Int    @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, type, month])
+  @@index([userId, month])
+  @@map("usage_records")
+}
+
+model UsageCredit {
+  id        String    @id @default(uuid())
+  userId    String    @map("user_id")
+  type      String
+  amount    Int
+  reason    String?
+  expiresAt DateTime? @map("expires_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+  @@map("usage_credits")
+}
+
+model SeteokHistory {
+  id          String   @id @default(uuid())
+  userId      String   @map("user_id")
+  subjectId   String   @map("subject_id")
+  subjectName String   @map("subject_name")
+  type        String
+  topic       String
+  content     String
+  charCount   Int      @default(0) @map("char_count")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, subjectId])
+  @@map("seteok_history")
+}
+
+model Referral {
+  id             String    @id @default(uuid())
+  referrerId     String    @map("referrer_id")
+  refereeId      String    @unique @map("referee_id")
+  completedAt    DateTime? @map("completed_at")
+  creditsGranted Boolean   @default(false) @map("credits_granted")
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  referrer User @relation("Referrer", fields: [referrerId], references: [id], onDelete: Cascade)
+  referee  User @relation("Referee",  fields: [refereeId],  references: [id], onDelete: Cascade)
+
+  @@index([referrerId])
+  @@map("referrals")
+}

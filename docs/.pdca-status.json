@@ -1,7 +1,8 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-03-06T11:09:07.510Z",
+  "lastUpdated": "2026-03-24T05:05:05.444Z",
   "activeFeatures": [
+    "subscription",
     "Student-Activity-Maker",
     "generate-report",
     "generate-setech",
@@ -17,10 +18,66 @@
     "expand-topics",
     "feedback",
     "batch-generate",
-    "batch"
+    "batch",
+    "generate-sources",
+    "SourceList.tsx",
+    "Student-Activity-Maker-Paid-Model",
+    "check",
+    "increment",
+    "login",
+    "upsell",
+    "dashboard",
+    "my",
+    "profile",
+    "auth",
+    "create",
+    "webhook",
+    "cancel",
+    "status",
+    "payment",
+    "success",
+    "fail",
+    "pricing",
+    "apply",
+    "notifications",
+    "deadline",
+    "weekly-report",
+    "reactivation",
+    "signup",
+    "diagnosis",
+    "topic-rarity",
+    "dna"
   ],
-  "primaryFeature": "v2-sprint3",
+  "primaryFeature": "subscription",
   "features": {
+    "subscription": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [
+        "F-01: 사용량 제한 및 카운터",
+        "F-02: 구독 결제 플로우",
+        "F-03: 구독자 대시보드",
+        "F-04: 마이페이지",
+        "F-05: 랜딩 페이지 개선",
+        "F-06: 업셀 & 전환 UX",
+        "F-07: 이메일 알림",
+        "F-08: 친구 초대"
+      ],
+      "documents": {
+        "plan": "docs/01-plan/features/subscription.plan.md",
+        "planModel": "docs/01-plan/features/subscription-model.plan.md",
+        "planJourney": "docs/01-plan/features/subscription-user-journey.plan.md",
+        "design": "docs/02-design/features/subscription.design.md",
+        "designLanding": "docs/02-design/features/subscription-landing.design.md",
+        "designDashboard": "docs/02-design/features/subscription-dashboard.design.md"
+      },
+      "timestamps": {
+        "started": "2026-03-19T07:00:00.000Z",
+        "lastUpdated": "2026-03-19T07:30:00.000Z"
+      }
+    },
     "Student-Activity-Maker": {
       "phase": "do",
       "phaseNumber": 3,
@@ -30,9 +87,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-04T05:30:14.352Z",
-        "lastUpdated": "2026-03-06T11:08:15.727Z"
+        "lastUpdated": "2026-03-19T01:58:48.288Z"
       },
-      "lastFile": "C:/gerardo/01 SmallSF/Student-Activity-Maker/src/app/page.tsx"
+      "lastFile": "C:/gerardo/01 SmallSF/Student-Activity-Maker/src/lib/ai.ts"
     },
     "generate-report": {
       "phase": "do",
@@ -82,9 +139,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-04T07:32:46.571Z",
-        "lastUpdated": "2026-03-05T07:46:08.320Z"
+        "lastUpdated": "2026-03-24T05:04:40.211Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\components\\features\\ResultDisplay.tsx"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\components\\features\\DnaCard.tsx"
     },
     "[subject]": {
       "phase": "do",
@@ -108,9 +165,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-04T07:48:23.381Z",
-        "lastUpdated": "2026-03-05T08:18:38.962Z"
+        "lastUpdated": "2026-03-20T02:36:52.847Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\app\\generate\\page.tsx"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\referral\\generate\\route.ts"
     },
     "history": {
       "phase": "do",
@@ -121,9 +178,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-04T08:31:28.091Z",
-        "lastUpdated": "2026-03-05T07:49:03.360Z"
+        "lastUpdated": "2026-03-20T02:35:40.692Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\app\\history\\page.tsx"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\history\\route.ts"
     },
     "[id]": {
       "phase": "do",
@@ -225,9 +282,373 @@
       "documents": {},
       "timestamps": {
         "started": "2026-03-05T07:07:07.173Z",
-        "lastUpdated": "2026-03-05T07:48:02.499Z"
+        "lastUpdated": "2026-03-20T02:00:04.332Z"
       },
-      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker\\src\\app\\batch\\page.tsx"
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\batch\\page.tsx"
+    },
+    "generate-sources": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T01:58:59.863Z",
+        "lastUpdated": "2026-03-19T01:58:59.863Z"
+      },
+      "lastFile": "C:/gerardo/01 SmallSF/Student-Activity-Maker/src/app/api/generate-sources/route.ts"
+    },
+    "SourceList.tsx": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T01:59:17.074Z",
+        "lastUpdated": "2026-03-19T04:31:34.416Z"
+      },
+      "lastFile": "C:/gerardo/01 SmallSF/Student-Activity-Maker/src/components/features/SourceList.tsx"
+    },
+    "Student-Activity-Maker-Paid-Model": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T07:59:18.633Z",
+        "lastUpdated": "2026-03-24T05:02:30.707Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\lib\\ai.ts"
+    },
+    "check": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:03:34.119Z",
+        "lastUpdated": "2026-03-19T08:03:34.119Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\usage\\check\\route.ts"
+    },
+    "increment": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:03:40.217Z",
+        "lastUpdated": "2026-03-19T08:03:40.217Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\usage\\increment\\route.ts"
+    },
+    "login": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:06:01.401Z",
+        "lastUpdated": "2026-03-23T11:39:36.977Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\(auth)\\login\\page.tsx"
+    },
+    "upsell": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:06:08.437Z",
+        "lastUpdated": "2026-03-23T05:56:28.755Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\components\\upsell\\UpgradeModal.tsx"
+    },
+    "dashboard": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:07:01.615Z",
+        "lastUpdated": "2026-03-24T05:05:05.444Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\dashboard\\page.tsx"
+    },
+    "my": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:09:03.898Z",
+        "lastUpdated": "2026-03-23T11:47:53.712Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\components\\my\\SubscriptionCard.tsx"
+    },
+    "profile": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:10:43.199Z",
+        "lastUpdated": "2026-03-20T02:35:27.585Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\profile\\route.ts"
+    },
+    "auth": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:10:48.337Z",
+        "lastUpdated": "2026-03-20T00:57:21.239Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\components\\auth\\LogoutButton.tsx"
+    },
+    "create": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:14:55.064Z",
+        "lastUpdated": "2026-03-20T02:36:04.081Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\subscription\\create\\route.ts"
+    },
+    "webhook": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:15:07.753Z",
+        "lastUpdated": "2026-03-20T02:36:40.711Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\subscription\\webhook\\route.ts"
+    },
+    "cancel": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:15:19.088Z",
+        "lastUpdated": "2026-03-20T02:36:18.401Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\subscription\\cancel\\route.ts"
+    },
+    "status": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:15:25.324Z",
+        "lastUpdated": "2026-03-19T08:15:25.325Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\subscription\\status\\route.ts"
+    },
+    "payment": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:16:03.632Z",
+        "lastUpdated": "2026-03-23T11:56:04.227Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\components\\payment\\PricingCards.tsx"
+    },
+    "success": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:16:21.895Z",
+        "lastUpdated": "2026-03-19T08:16:21.895Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\payment\\success\\page.tsx"
+    },
+    "fail": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:16:29.949Z",
+        "lastUpdated": "2026-03-19T08:16:29.949Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\payment\\fail\\page.tsx"
+    },
+    "pricing": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-19T08:16:37.693Z",
+        "lastUpdated": "2026-03-23T11:56:31.432Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\pricing\\page.tsx"
+    },
+    "apply": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-20T00:49:38.325Z",
+        "lastUpdated": "2026-03-20T02:37:11.530Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\referral\\apply\\route.ts"
+    },
+    "notifications": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-23T05:55:28.739Z",
+        "lastUpdated": "2026-03-23T05:55:28.739Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\profile\\notifications\\route.ts"
+    },
+    "deadline": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-23T08:20:04.294Z",
+        "lastUpdated": "2026-03-23T08:20:04.294Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\email\\deadline\\route.ts"
+    },
+    "weekly-report": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-23T08:20:26.733Z",
+        "lastUpdated": "2026-03-23T08:20:26.733Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\email\\weekly-report\\route.ts"
+    },
+    "reactivation": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-23T08:20:44.093Z",
+        "lastUpdated": "2026-03-23T08:20:44.093Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\email\\reactivation\\route.ts"
+    },
+    "signup": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-23T10:08:24.915Z",
+        "lastUpdated": "2026-03-23T10:23:40.575Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\auth\\signup\\route.ts"
+    },
+    "diagnosis": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:02:52.012Z",
+        "lastUpdated": "2026-03-24T05:04:47.731Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\my\\diagnosis\\page.tsx"
+    },
+    "topic-rarity": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:02:58.131Z",
+        "lastUpdated": "2026-03-24T05:02:58.131Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\api\\topic-rarity\\route.ts"
+    },
+    "dna": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-03-24T05:03:05.786Z",
+        "lastUpdated": "2026-03-24T05:04:54.986Z"
+      },
+      "lastFile": "C:\\gerardo\\01 SmallSF\\Student-Activity-Maker-Paid-Model\\src\\app\\my\\dna\\page.tsx"
     }
   },
   "pipeline": {
@@ -238,7 +659,7 @@
   "session": {
     "startedAt": "2026-03-04T05:19:00.707Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-03-06T11:09:07.510Z"
+    "lastActivity": "2026-03-24T05:05:05.444Z"
   },
   "history": [
     {
@@ -1210,6 +1631,840 @@
     {
       "timestamp": "2026-03-06T11:09:07.510Z",
       "feature": "[subject]",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T01:57:59.777Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T01:58:07.973Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T01:58:48.288Z",
+      "feature": "Student-Activity-Maker",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T01:58:59.863Z",
+      "feature": "generate-sources",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T01:59:17.074Z",
+      "feature": "SourceList.tsx",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T01:59:48.187Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T01:59:52.564Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T01:59:57.996Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T02:00:06.784Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T02:00:13.664Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T02:14:19.387Z",
+      "feature": "SourceList.tsx",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T02:14:27.674Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T04:15:16.902Z",
+      "feature": "batch",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T04:15:21.864Z",
+      "feature": "batch",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T04:15:29.692Z",
+      "feature": "batch",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T04:15:39.751Z",
+      "feature": "batch",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T04:23:56.465Z",
+      "feature": "SourceList.tsx",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T04:31:17.590Z",
+      "feature": "SourceList.tsx",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T04:31:29.387Z",
+      "feature": "SourceList.tsx",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T04:31:34.416Z",
+      "feature": "SourceList.tsx",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T07:59:18.633Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T07:59:27.261Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T07:59:41.824Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:03:18.766Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:03:34.120Z",
+      "feature": "check",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:03:40.217Z",
+      "feature": "increment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:06:01.401Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:06:08.437Z",
+      "feature": "upsell",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:06:20.722Z",
+      "feature": "upsell",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:06:47.727Z",
+      "feature": "upsell",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:07:01.615Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:07:24.899Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:07:42.493Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:07:55.587Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:08:10.063Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:08:28.390Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:08:43.951Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:09:03.898Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:09:28.893Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:09:57.904Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:10:10.626Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:10:25.185Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:10:43.199Z",
+      "feature": "profile",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:10:48.337Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:11:10.868Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:14:39.987Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:14:55.064Z",
+      "feature": "create",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:15:07.753Z",
+      "feature": "webhook",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:15:19.088Z",
+      "feature": "cancel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:15:25.325Z",
+      "feature": "status",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:16:03.632Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:16:21.895Z",
+      "feature": "success",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:16:29.949Z",
+      "feature": "fail",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:16:37.693Z",
+      "feature": "pricing",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:17:34.001Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:17:44.028Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:17:50.123Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:18:09.840Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-19T08:18:27.470Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:48:21.417Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:48:29.991Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:48:42.160Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:48:56.776Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:49:22.233Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:49:38.325Z",
+      "feature": "apply",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:51:53.565Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:52:12.506Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:52:18.431Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:52:24.847Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:52:30.869Z",
+      "feature": "dashboard",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:57:21.239Z",
+      "feature": "auth",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:57:29.178Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T00:57:37.037Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T01:58:12.136Z",
+      "feature": "history",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T01:58:22.920Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T01:58:34.601Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T01:58:56.402Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T01:59:04.355Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T01:59:35.237Z",
+      "feature": "batch",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T01:59:47.081Z",
+      "feature": "batch",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T01:59:56.094Z",
+      "feature": "batch",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:00:04.332Z",
+      "feature": "batch",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:00:20.259Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:00:27.337Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:00:39.993Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:33:59.770Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:34:16.194Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:34:41.261Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:34:55.144Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:35:27.585Z",
+      "feature": "profile",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:35:40.692Z",
+      "feature": "history",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:35:47.629Z",
+      "feature": "create",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:36:04.081Z",
+      "feature": "create",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:36:18.401Z",
+      "feature": "cancel",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:36:25.525Z",
+      "feature": "webhook",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:36:40.711Z",
+      "feature": "webhook",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:36:52.847Z",
+      "feature": "generate",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-20T02:37:11.530Z",
+      "feature": "apply",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T05:55:04.235Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T05:55:28.739Z",
+      "feature": "notifications",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T05:55:50.768Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T05:56:14.578Z",
+      "feature": "upsell",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T05:56:28.755Z",
+      "feature": "upsell",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T08:07:32.876Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T08:19:46.473Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T08:20:04.294Z",
+      "feature": "deadline",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T08:20:26.733Z",
+      "feature": "weekly-report",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T08:20:44.093Z",
+      "feature": "reactivation",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T10:08:01.960Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T10:08:16.885Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T10:08:24.915Z",
+      "feature": "signup",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T10:08:53.680Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T10:09:29.599Z",
+      "feature": "signup",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T10:23:20.602Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T10:23:27.234Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T10:23:34.699Z",
+      "feature": "signup",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T10:23:40.575Z",
+      "feature": "signup",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:39:36.977Z",
+      "feature": "login",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:43:19.514Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:43:29.045Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:47:43.070Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:47:48.102Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:47:53.712Z",
+      "feature": "my",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:54:33.723Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:55:14.276Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:55:29.158Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:55:57.001Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:56:04.227Z",
+      "feature": "payment",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-23T11:56:31.432Z",
+      "feature": "pricing",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:02:30.707Z",
+      "feature": "Student-Activity-Maker-Paid-Model",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:02:52.012Z",
+      "feature": "diagnosis",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:02:58.131Z",
+      "feature": "topic-rarity",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:03:05.786Z",
+      "feature": "dna",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:03:50.591Z",
+      "feature": "features",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:04:13.637Z",
+      "feature": "features",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:04:40.211Z",
+      "feature": "features",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:04:47.731Z",
+      "feature": "diagnosis",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:04:54.986Z",
+      "feature": "dna",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-03-24T05:05:05.444Z",
+      "feature": "dashboard",
       "phase": "do",
       "action": "updated"
     }

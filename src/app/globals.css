@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf7ff;
-  --foreground: #1e1b4b;
+  --background: #fdf6fa;
+  --foreground: #3d1535;
 }
 
 @theme inline {
@@ -15,9 +15,9 @@ body {
   color: var(--foreground);
   font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background-image:
-    radial-gradient(ellipse at 20% 0%, rgba(167, 139, 250, 0.15) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 0%, rgba(236, 72, 153, 0.10) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 100%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+    radial-gradient(ellipse at 20% 0%, rgba(240, 171, 252, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 0%, rgba(249, 168, 212, 0.14) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(216, 180, 254, 0.10) 0%, transparent 60%);
   background-attachment: scroll; /* fixed 제거 - iOS 스크롤 버벅임 방지 */
   min-height: 100vh;
   -webkit-tap-highlight-color: transparent; /* 모바일 탭 하이라이트 제거 */
@@ -31,7 +31,7 @@ body {
 
 /* ───── Gradient text utility ───── */
 .gradient-text {
-  background: linear-gradient(135deg, #7c3aed 0%, #ec4899 100%);
+  background: linear-gradient(135deg, #a855f7 0%, #f472b6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -39,28 +39,28 @@ body {
 
 /* ───── Glass card ───── */
 .glass-card {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 4px 24px rgba(124, 58, 237, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 24px rgba(236, 72, 153, 0.05), 0 1px 4px rgba(0, 0, 0, 0.03);
 }
 
 /* ───── Gradient button ───── */
 .btn-gradient {
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%);
+  background: linear-gradient(135deg, #c084fc 0%, #e879a0 50%, #f9a8d4 100%);
   background-size: 200% 200%;
   background-position: 0% 50%;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
+  box-shadow: 0 4px 15px rgba(192, 132, 252, 0.30);
 }
 .btn-gradient:hover {
   background-position: 100% 50%;
-  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+  box-shadow: 0 6px 20px rgba(192, 132, 252, 0.40);
   transform: translateY(-1px);
 }
 .btn-gradient:disabled {
-  background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%);
+  background: linear-gradient(135deg, #e9d5ff 0%, #fce7f3 100%);
   box-shadow: none;
   transform: none;
   cursor: not-allowed;
@@ -93,7 +93,7 @@ body {
 }
 .card-hover:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(124, 58, 237, 0.12);
+  box-shadow: 0 12px 32px rgba(244, 114, 182, 0.12);
 }
 
 /* 터치 디바이스에서는 hover 대신 active로 피드백 */
@@ -108,7 +108,7 @@ body {
   }
   .btn-gradient:hover {
     background-position: 0% 50%;
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
+    box-shadow: 0 4px 15px rgba(192, 132, 252, 0.30);
     transform: none;
   }
   .btn-gradient:active {
