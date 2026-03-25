@@ -93,6 +93,22 @@ function useCountUp(target: number, duration = 2000, start = false) {
   return count;
 }
 
+function useReveal(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { threshold }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
+
 export default function HomePage() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -101,11 +117,11 @@ export default function HomePage() {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [typewriterIndex, setTypewriterIndex] = useState(0);
-  const [statsVisible, setStatsVisible] = useState(false);
-  const statsRef = useRef<HTMLDivElement>(null);
+  const s2 = useReveal(); const s3 = useReveal(); const s4 = useReveal();
+  const s5 = useReveal(); const s6 = useReveal(); const s7 = useReveal(); const s8 = useReveal();
 
-  const users = useCountUp(12400, 2000, statsVisible);
-  const generated = useCountUp(38000, 2000, statsVisible);
+  const users = useCountUp(12400, 2000, s5.visible);
+  const generated = useCountUp(38000, 2000, s5.visible);
 
   useEffect(() => {
     const saved = localStorage.getItem('sam_grade') as Grade | null;
@@ -121,17 +137,6 @@ export default function HomePage() {
     return () => clearTimeout(timer);
   }, [typewriterIndex]);
 
-  // Stats counter on scroll
-  useEffect(() => {
-    const el = statsRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setStatsVisible(true); },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
 
   const handleGradeSelect = (grade: Grade) => {
     setSelectedGrade(grade);
@@ -225,7 +230,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           섹션 2: Pain Point
       ══════════════════════════════════════════ */}
-      <div className="mb-12">
+      <div ref={s2.ref} className={`mb-12 transition-all duration-700 ${s2.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="mb-6 text-center text-xl font-extrabold text-slate-900 sm:text-2xl">
           혹시 이런 고민, 해본 적 있나요?
         </h2>
@@ -239,14 +244,14 @@ export default function HomePage() {
           ))}
         </div>
         <p className="mt-5 text-center text-sm font-semibold text-fuchsia-600">
-          이 3가지 고통, AI 생기부 Maker가 한 번에 해결합니다 →
+          이 3가지 고통, AI 생기부 친구가 한 번에 해결합니다 →
         </p>
       </div>
 
       {/* ══════════════════════════════════════════
           섹션 3: Before / After
       ══════════════════════════════════════════ */}
-      <div className="mb-12">
+      <div ref={s3.ref} className={`mb-12 transition-all duration-700 delay-100 ${s3.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="mb-6 text-center text-xl font-extrabold text-slate-900 sm:text-2xl">
           Before / After — 직접 보세요
         </h2>
@@ -296,7 +301,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           섹션 4: Feature Bento Grid
       ══════════════════════════════════════════ */}
-      <div className="mb-12">
+      <div ref={s4.ref} className={`mb-12 transition-all duration-700 ${s4.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="mb-6 text-center text-xl font-extrabold text-slate-900 sm:text-2xl">
           한 플랫폼에서 모든 것을
         </h2>
@@ -317,7 +322,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           섹션 5: 후기 + 통계
       ══════════════════════════════════════════ */}
-      <div className="mb-12" ref={statsRef}>
+      <div ref={s5.ref} className={`mb-12 transition-all duration-700 ${s5.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="mb-6 text-center text-xl font-extrabold text-slate-900 sm:text-2xl">
           실제 학생들의 이야기
         </h2>
@@ -358,7 +363,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           섹션 6: 인라인 프라이싱
       ══════════════════════════════════════════ */}
-      <div className="mb-12">
+      <div ref={s6.ref} className={`mb-12 transition-all duration-700 ${s6.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="mb-2 text-center text-xl font-extrabold text-slate-900 sm:text-2xl">
           입시 한 달에 커피 두 잔값
         </h2>
@@ -456,7 +461,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           섹션 7: FAQ
       ══════════════════════════════════════════ */}
-      <div className="mb-12">
+      <div ref={s7.ref} className={`mb-12 transition-all duration-700 ${s7.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="mb-6 text-center text-xl font-extrabold text-slate-900 sm:text-2xl">
           자주 묻는 질문
         </h2>
@@ -485,7 +490,7 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════
           섹션 8: Final CTA
       ══════════════════════════════════════════ */}
-      <div className="mb-12">
+      <div ref={s8.ref} className={`mb-12 transition-all duration-700 ${s8.visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="rounded-2xl bg-gradient-to-br from-fuchsia-500 via-pink-500 to-rose-400 p-8 text-center text-white shadow-2xl">
           <h2 className="text-2xl font-extrabold sm:text-3xl">
             경쟁자는 지금 쓰고 있습니다

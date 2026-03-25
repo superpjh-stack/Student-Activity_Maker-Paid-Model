@@ -7,7 +7,7 @@ import LogoutButton from '@/components/auth/LogoutButton';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: "AI 생기부 Maker ✨",
+  title: "AI 생기부 친구 ✨",
   description: '나만의 세특과 탐구보고서를 AI로 5분 만에 완성하세요',
 };
 
@@ -38,7 +38,7 @@ export default async function RootLayout({
                   📝
                 </span>
                 <span className="font-bold text-sm sm:text-base gradient-text">AI 생기부</span>
-                <span className="hidden sm:inline font-bold text-sm sm:text-base gradient-text">Maker</span>
+                <span className="hidden sm:inline font-bold text-sm sm:text-base gradient-text">친구</span>
               </Link>
 
               <div className="flex items-center gap-1.5 sm:gap-2">
