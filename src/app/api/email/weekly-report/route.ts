@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     select: { userId: true },
   });
 
-  const userIds = activeUserIds.map(r => r.userId);
+  const userIds = activeUserIds.map((r: { userId: string }) => r.userId);
   if (userIds.length === 0) {
     return NextResponse.json({ ...results, message: 'No active users this month' });
   }
@@ -74,7 +74,7 @@ export async function GET(request: NextRequest) {
       select: { subjectName: true },
     });
 
-    const completedSubjects = history.map(h => h.subjectName);
+    const completedSubjects = history.map((h: { subjectName: string }) => h.subjectName);
     const remainingSubjects = ALL_SUBJECTS.filter(s => !completedSubjects.includes(s));
 
     // 이번 달 총 생성 횟수
