@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
 
     if (lastActivityGroups.length === 0) continue;
 
-    const candidateIds = lastActivityGroups.map(g => g.userId);
+    const candidateIds = lastActivityGroups.map((g: { userId: string }) => g.userId);
 
     const users = await prisma.user.findMany({
       where: { id: { in: candidateIds }, email: { not: '' } },
